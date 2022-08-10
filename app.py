@@ -52,6 +52,7 @@ st.altair_chart(c, use_container_width=True)
 
 #PLOTLY
 plot=px.scatter(data_frame=df2_todas,x=df2_todas['date'],y=df2_todas['inpatient_beds_used_covid'])
+
 st.plotly_chart(plot)
 
 

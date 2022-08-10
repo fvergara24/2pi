@@ -60,10 +60,8 @@ mask3 = (df['date'] >= '2020/1/1') & (df['date'] <= '2020/12/31')
 df3=df.loc[mask3]
 df3=df3[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
 df3.reset_index(inplace=True, drop=True)
-#df3.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'total_adult','total_pediatric_patients_hospitalized_confirmed_covid':'total_pediatric'}, inplace=True)
-#df3= df3_6meses.fillna(0, axis=1)
-top_5=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confirmed_covid',ascending=False).head(5)
-st.dataframe(data=top_5, width=None, height=None)
-
+df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confirmed_covid',ascending=False).head(5)
+df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
+st.dataframe(data=df3, width=None, height=None)
 
 

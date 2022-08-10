@@ -42,4 +42,5 @@ st.write('Tabla 2. Total de ocupación hospitalaria por COVID-19 por mes')
 df3_6meses_pormes=df3_6meses[['date','Total']].copy()
 df3_6meses_pormes=df3_6meses_pormes.groupby(pd.PeriodIndex(df3_6meses_pormes.date, freq='M')).sum()
 
-st.dataframe(data=df3_6meses_pormes, width=None, height=None)
+                            
+st.image(Image.open('meses.jpg'))

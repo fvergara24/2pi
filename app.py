@@ -66,6 +66,18 @@ df4=df4.dropna()
 df4=df4.groupby('state').sum().sort_values(by='Total Camas Pediátricas',ascending=False).head(5)
 st.dataframe(data=df4, width=None, height=None)
 
+#PUNTO 5
+df5=df[['date','state','total_staffed_adult_icu_beds','staffed_icu_adult_patients_confirmed_covid']].copy()
+mask5 = (df['date'] <= '2021/8/1')
+df5=df5.loc[mask5]
+df5.reset_index(inplace=True, drop=True)
+df5=df5.rename(columns={'total_staffed_adult_icu_beds':'Total Camas ICU','staffed_icu_adult_patients_confirmed_covid':'Total Camas ICU Confirmada'}, inplace=False)
+df5=df5.dropna()
+df5.drop(df5[(df5['Total Camas ICU']==0) & (df5['Total Camas ICU Confirmada']==0)].index, inplace=True)
+df5=df5.groupby('state').sum()
+df5['%']=round(df5['Total Camas ICU Confirmada']*100/df5['Total Camas ICU'],2)
+df5=df5.sort_values(by='%',ascending=False).head(5)
+st.dataframe(data=df5, width=None, height=None)
 
 
 #PUNTO 7

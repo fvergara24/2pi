@@ -43,12 +43,7 @@ df2_todas=df[['date','state','inpatient_beds_used_covid']].copy()
 df2_todas=df2_todas[df2_todas['state']=='NY']
 df2_todas=df2_todas.drop('state',axis=1)
 
-#ALTAIR
-# generate a date range to be used as the x axis
-df2_todas['date'] =  pd.date_range(start=df2_todas['date'].min(), end=df2_todas['date'].max(),freq="D")
-df_melted = pd.melt(df2_todas,id_vars=['date'],var_name='parameter', value_name='value')
-c = alt.Chart(df_melted, title='measure of different elements over time').mark_line().encode(x='date', y='value', color='parameter')
-st.altair_chart(c, use_container_width=True)
+
 
 #PLOTLY
 plot=px.scatter(data_frame=df2_todas,x=df2_todas['date'],y=df2_todas['inpatient_beds_used_covid'])

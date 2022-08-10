@@ -6,7 +6,7 @@ from PIL import Image
 
 
 image = Image.open('Henry.jpg')
-st.image(image, caption='Sunrise by the mountains')
+st.image(image)
 
 "PI2 Fernando Vergara"
 

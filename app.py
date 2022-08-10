@@ -44,8 +44,8 @@ df2_todas=df2_todas.drop('state',axis=1)
 
 #ALTAIR
 # generate a date range to be used as the x axis
-df_melted = pd.melt(df2_todas, id_vars='date', var_name='Fecha', value_name='Cantidad de camas')
-c = alt.Chart(df_melted, title='Ocupación de camas en el estado de Nueva York').mark_point().encode(x='Fecha', y='Cantidad de camas')#, color='parameter')
+df_melted = pd.melt(df2_todas, id_vars='date', value_name='Cantidad de camas')
+c = alt.Chart(df_melted, title='Ocupación de camas en el estado de Nueva York').mark_point().encode(x='date', y='Cantidad de camas')#, color='parameter')
 st.altair_chart(c, use_container_width=True)
 
 

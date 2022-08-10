@@ -56,6 +56,17 @@ df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confir
 df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
 st.dataframe(data=df3, width=None, height=None)
 
+#PUNTO 4
+df4=df[['date','state','total_pediatric_patients_hospitalized_confirmed_covid']].copy()
+mask_2020 = (df['date'] >= '2020/1/1') & (df['date'] <= '2020/12/31')
+df4=df4.loc[mask_2020]
+df4.reset_index(inplace=True, drop=True)
+df4=df4.rename(columns={'total_pediatric_patients_hospitalized_confirmed_covid':'Total Camas Pediátricas'}, inplace=False)
+df4=df4.dropna()
+df4=df4.groupby('state').sum().sort_values(by='Total Camas Pediátricas',ascending=False).head(5)
+st.dataframe(data=df4, width=None, height=None)
+
+
 
 #PUNTO 7
 df7=df[['date','state','deaths_covid','critical_staffing_shortage_today_yes']].copy()

@@ -39,6 +39,6 @@ top5_3 = top5_3.sort_values(by=['Total'],inplace=False, ascending=False)
 st.dataframe(data=top5_3, width=None, height=None)
 
 st.write('Tabla 2. Total de ocupación hospitalaria por COVID-19 por mes')
-df3_6meses_pormes=df3_6meses.drop('state', axis=1)
-
-st.dataframe(date=df3_6meses_pormes, width=None, height=None)
+df3_6meses_pormes=df3_6meses[['date','Total Adult','Total Pediatric','Total']].copy()
+df3_6meses_pormes=df3_6meses_pormes.groupby(pd.PeriodIndex(df3_6meses_pormes.date, freq='M')).sum()
+st.dataframe(data=df3_6meses_pormes, width=None, height=None)

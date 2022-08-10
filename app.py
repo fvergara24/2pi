@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import altair as alt
-import plotly.express as px 
+import matplotlib.pyplot as plt
 from PIL import Image
 
 
@@ -77,5 +77,10 @@ df7=df7.groupby('state').sum()
 x7=df7['Falta de Personal']
 y7=df7['Muertes Covid']
 
-fig = px.scatter(x=x7, y=y7)
-fig.show()
+#fig = px.scatter(x=x7, y=y7)
+#fig.show()
+
+fig = plt.figure() 
+plt.plot([1, 2, 3, 4, 5]) 
+
+st.pyplot(fig)

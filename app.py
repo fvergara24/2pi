@@ -39,6 +39,9 @@ st.image(Image.open('meses.jpg'))
 #PUNTO 2
 df2_todas=df[['date','state','inpatient_beds_used_covid']].copy()
 df2_todas=df2_todas[df2_todas['state']=='NY']
+df2_todas=df2_todas.drop('state',axis=1)
+
 st.dataframe(data=df2_todas)
+st.line_chart(data=df2_todas)
 
 

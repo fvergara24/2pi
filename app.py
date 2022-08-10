@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import altair as alt
-import matplotlib.pyplot as plt
 import plotly.express as px 
 from PIL import Image
 

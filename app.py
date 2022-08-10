@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import altair as alt
-#import plotly_express as px
+import matplotlib.pyplot as plt
+import plotly.express as px 
 from PIL import Image
 
 
@@ -65,3 +66,17 @@ df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Cama
 st.dataframe(data=df3, width=None, height=None)
 
 
+#PUNTO 7
+df7=df[['date','state','deaths_covid','critical_staffing_shortage_today_yes']].copy()
+mask2021=(df['date'] >= '2021/1/1') & (df['date'] <= '2021/12/31')
+df7=df7.loc[mask2021]
+df7.reset_index(inplace=True, drop=True)
+df7=df7.rename(columns={'deaths_covid':'Muertes Covid','critical_staffing_shortage_today_yes':'Falta de Personal'}, inplace=False)
+df7=df7.dropna()
+df7=df7.groupby('state').sum()
+#Gráfica
+x7=df7['Falta de Personal']
+y7=df7['Muertes Covid']
+
+fig = px.scatter(x=x7, y=y7)
+fig.show()

@@ -12,9 +12,7 @@ image = Image.open('Henry.jpg')
 st.image(image)
 
 st.title("PI2 Fernando Vergara")
-
-st.write('dfhola noseendoneestas')
-
+## PI2 Fernando Vergara
 
 st.write('Tabla 1. Estados con mayor ocupación hospitalario por COVID-19 en los primeros 6 meses del 2020')
 #df=pd.read_csv('https://raw.githubusercontent.com/soyHenry/DS-PI-ProyectoIndividual/main/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')

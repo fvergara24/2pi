@@ -79,6 +79,16 @@ df5['%']=round(df5['Total Camas ICU Confirmada']*100/df5['Total Camas ICU'],2)
 df5=df5.sort_values(by='%',ascending=False).head(5)
 st.dataframe(data=df5, width=None, height=None)
 
+#PUNTO 6
+df6=df[['date','state','deaths_covid']].copy()
+mask2021=(df['date'] >= '2021/1/1') & (df['date'] <= '2021/12/31')
+df6=df6.loc[mask2021]
+df6.reset_index(inplace=True, drop=True)
+df6=df6.rename(columns={'deaths_covid':'Muertes Covid'}, inplace=False)
+df6=df6.dropna()
+df6=df6.groupby('state').sum()
+df6.sort_values(by='Muertes Covid',ascending=False).head(5)
+st.dataframe(data=df6, width=None, height=None)
 
 #PUNTO 7
 df7=df[['date','state','deaths_covid','critical_staffing_shortage_today_yes']].copy()

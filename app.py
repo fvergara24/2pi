@@ -104,3 +104,15 @@ df7=df7.groupby('state').sum()
 df_melted_7 = pd.melt(df7, id_vars='Falta de Personal', value_name='Muertes Covid')
 c_7 = alt.Chart(df_melted_7, title='Relación entre Falta de Personal y Muertes por Covid-19').mark_point().encode(x='Falta de Personal', y='Muertes Covid')#, color='parameter')
 st.altair_chart(c_7, use_container_width=True)
+
+#Un mapa que muestre la cantidad de hospitalizados debido al COVID-19 por Estado.
+mask = (df['date'] > '2020/1/1') & (df['date'] <= '2020/6/30')
+df1=df.loc[mask]
+dfmap=df1[['date','state','total_adult_patients_hospitalized_confirmed_covid','total_pediatric_patients_hospitalized_confirmed_covid']].copy()
+dfmap.reset_index(inplace=True, drop=True)
+dfmap.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adult','total_pediatric_patients_hospitalized_confirmed_covid':'Total Pediatric'}, inplace=True)
+dfmap= dfmap.fillna(0, axis=1)
+dfmap['Total']=dfmap['Total Adult']+dfmap['Total Pediatric']
+dfmap=dfmap.drop(['Total Adult','Total Pediatric'],axis=1)
+dfmap = dfmap.groupby('state').sum()
+st.dataframe(data=dfmap, width=None, height=None)

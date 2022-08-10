@@ -12,23 +12,18 @@ st.image(image)
 
 st.title("PI2 Fernando Vergara")
 
-
-
-
-df = pd.DataFrame(np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],columns=['lat', 'lon'])
-st.map(df)
-
-
 st.write('dfhola noseendoneestas')
-
 
 
 st.write('Tabla 1. Estados con mayor ocupación hospitalario por COVID-19 en los primeros 6 meses del 2020')
 #df=pd.read_csv('https://raw.githubusercontent.com/soyHenry/DS-PI-ProyectoIndividual/main/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
 df=pd.read_csv('COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
 df.date=pd.to_datetime(df.date, format='%Y/%m/%d')
+
 mask = (df['date'] > '2020/1/1') & (df['date'] <= '2020/6/30')
 df1=df.loc[mask]
+
+#PUNTO 1
 df3_6meses=df1[['date','state','total_adult_patients_hospitalized_confirmed_covid','total_pediatric_patients_hospitalized_confirmed_covid']].copy()
 df3_6meses.reset_index(inplace=True, drop=True)
 df3_6meses.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adult','total_pediatric_patients_hospitalized_confirmed_covid':'Total Pediatric'}, inplace=True)
@@ -38,9 +33,12 @@ top5_3 = df3_6meses.groupby('state').sum()
 top5_3 = top5_3.sort_values(by=['Total'],inplace=False, ascending=False)
 st.dataframe(data=top5_3, width=None, height=None)
 
-st.write('Tabla 2. Total de ocupación hospitalaria por COVID-19 por mes')
-df3_6meses_pormes=df3_6meses[['date','Total']].copy()
-df3_6meses_pormes=df3_6meses_pormes.groupby(pd.PeriodIndex(df3_6meses_pormes.date, freq='M')).sum()
-
-                            
+st.write('Tabla 2. Total de ocupación hospitalaria por COVID-19 por mes')                            
 st.image(Image.open('meses.jpg'))
+
+#PUNTO 2
+df2_todas=df[['date','state','inpatient_beds_used_covid']].copy()
+df2_todas=df2_todas[df2_todas['state']=='NY']
+st.dataframe(data=df2_todas)
+
+

@@ -1,6 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from PIL import Image
+
+
+
+image = Image.open('Henry.jpg')
+st.image(image, caption='Sunrise by the mountains')
 
 "PI2 Fernando Vergara"
 

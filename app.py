@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import altair as alt
-import plotly_express as px
+#import plotly_express as px
 from PIL import Image
 
 
@@ -52,9 +52,8 @@ st.altair_chart(c, use_container_width=True)
 
 
 #PLOTLY
-plot=px.scatter(data_frame=df2_todas,x=df2_todas['date'],y=df2_todas['inpatient_beds_used_covid'])
-
-st.plotly_chart(plot)
+#plot=px.scatter(data_frame=df2_todas,x=df2_todas['date'],y=df2_todas['inpatient_beds_used_covid'])
+#st.plotly_chart(plot)
 
 
 

@@ -87,7 +87,7 @@ df6.reset_index(inplace=True, drop=True)
 df6=df6.rename(columns={'deaths_covid':'Muertes Covid'}, inplace=False)
 df6=df6.dropna()
 df6=df6.groupby('state').sum()
-df6.sort_values(by='Muertes Covid',ascending=False).head(5)
+df6=df6.sort_values(by='Muertes Covid',ascending=False).head(5)
 st.dataframe(data=df6, width=None, height=None)
 
 #PUNTO 7

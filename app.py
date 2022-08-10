@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import datetime as dt
 from PIL import Image
 
 
@@ -22,7 +23,7 @@ st.write('dfhola noseendoneestas')
 
 
 
-
+st.write('Tabla 1. Estados con mayor ocupación hospitalario por COVID-19 en los primeros 6 meses del 2020')
 #df=pd.read_csv('https://raw.githubusercontent.com/soyHenry/DS-PI-ProyectoIndividual/main/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
 df=pd.read_csv('COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
 df.date=pd.to_datetime(df.date, format='%Y/%m/%d')
@@ -36,3 +37,8 @@ df3_6meses['Total']=df3_6meses['Total Adult']+df3_6meses['Total Pediatric']
 top5_3 = df3_6meses.groupby('state').sum()
 top5_3 = top5_3.sort_values(by=['Total'],inplace=False, ascending=False)
 st.dataframe(data=top5_3, width=None, height=None)
+
+st.dataframe(data=df3_6meses, width=None, height=None)
+
+
+

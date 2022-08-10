@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import datetime as dt
+import altair as alt
 from PIL import Image
 
 
@@ -41,7 +42,12 @@ df2_todas=df[['date','state','inpatient_beds_used_covid']].copy()
 df2_todas=df2_todas[df2_todas['state']=='NY']
 df2_todas=df2_todas.drop('state',axis=1)
 
-st.dataframe(data=df2_todas)
-st.line_chart(data=df2_todas)
+# generate a date range to be used as the x axis
+df2_todas['date'] =  pd.date_range(start=df2_todas['date'].min(), end=df2_todas['date'].max(),freq="D")
+df_melted = pd.melt(df2_todas,id_vars=['date'],var_name='parameter', value_name='value')
+c = alt.Chart(df_melted, title='measure of different elements over time').mark_line().encode(x='date', y='value', color='parameter')
+
+st.altair_chart(c, use_container_width=True)
+
 
 

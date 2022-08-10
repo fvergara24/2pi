@@ -68,5 +68,8 @@ df7=df7.rename(columns={'deaths_covid':'Muertes Covid','critical_staffing_shorta
 df7=df7.dropna()
 df7=df7.groupby('state').sum()
 #Gráfica
-x7=df7['Falta de Personal']
-y7=df7['Muertes Covid']
+#x7=df7['Falta de Personal']
+#y7=df7['Muertes Covid']
+df_melted_7 = pd.melt(df7, id_vars='Falta de Personal', value_name='Muertes Covid')
+c_7 = alt.Chart(df_melted_7, title='Relación entre Falta de Personal y Muertes por Covid-19').mark_point().encode(x='Falta de Personal', y='Muertes Covid')#, color='parameter')
+st.altair_chart(c_7, use_container_width=True)

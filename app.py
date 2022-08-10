@@ -39,11 +39,11 @@ st.image(Image.open('meses.jpg'))
 df2_todas=df[['date','state','inpatient_beds_used_covid']].copy()
 df2_todas=df2_todas[df2_todas['state']=='NY']
 df2_todas=df2_todas.drop('state',axis=1)
-
+#Gráfica
 #ALTAIR
 # generate a date range to be used as the x axis
 df_melted = pd.melt(df2_todas, id_vars='date', value_name='Cantidad de camas')
-c = alt.Chart(df_melted, title='Ocupación de camas en el estado de Nueva York').mark_point().encode(x='date', y='Cantidad de camas')#, color='parameter')
+c = alt.Chart(df_melted, title='Ocupación de camas en el estado de Nueva York').mark_point().encode(x='date', y='Cantidad de camas').interactive()
 st.altair_chart(c, use_container_width=True)
 
 
@@ -98,9 +98,8 @@ df7.reset_index(inplace=True, drop=True)
 df7=df7.rename(columns={'deaths_covid':'Muertes Covid','critical_staffing_shortage_today_yes':'Falta de Personal'}, inplace=False)
 df7=df7.dropna()
 df7=df7.groupby('state').sum()
+
 #Gráfica
-#x7=df7['Falta de Personal']
-#y7=df7['Muertes Covid']
 df_melted_7 = pd.melt(df7, id_vars='Falta de Personal', value_name='Muertes Covid')
 c_7 = alt.Chart(df_melted_7, title='Relación entre Falta de Personal y Muertes por Covid-19').mark_point().encode(x='Falta de Personal', y='Muertes Covid').interactive()#, color='parameter')
 st.altair_chart(c_7, use_container_width=True)

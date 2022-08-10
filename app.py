@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import altair as alt
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 from PIL import Image
 
 
@@ -80,7 +81,15 @@ y7=df7['Muertes Covid']
 #fig = px.scatter(x=x7, y=y7)
 #fig.show()
 
-fig = plt.figure() 
-plt.plot([1, 2, 3, 4, 5]) 
+#fig = plt.figure() 
+#plt.plot([1, 2, 3, 4, 5]) 
 
-st.pyplot(fig)
+#st.pyplot(fig)
+
+N = 1000
+t = np.linspace(0, 10, 100)
+y = np.sin(t)
+
+fig = go.Figure(data=go.Scatter(x=t, y=y, mode='markers'))
+
+fig.show()

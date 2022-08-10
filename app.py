@@ -3,8 +3,6 @@ import pandas as pd
 import numpy as np
 import datetime as dt
 import altair as alt
-#import matplotlib.pyplot as plt
-import plotly.graph_objects as go
 from PIL import Image
 
 
@@ -52,10 +50,6 @@ c = alt.Chart(df_melted, title='measure of different elements over time').mark_l
 st.altair_chart(c, use_container_width=True)
 
 
-#PLOTLY
-#plot=px.scatter(data_frame=df2_todas,x=df2_todas['date'],y=df2_todas['inpatient_beds_used_covid'])
-#st.plotly_chart(plot)
-
 #PUNTO 3
 mask3 = (df['date'] >= '2020/1/1') & (df['date'] <= '2020/12/31')
 df3=df.loc[mask3]
@@ -77,19 +71,3 @@ df7=df7.groupby('state').sum()
 #Gráfica
 x7=df7['Falta de Personal']
 y7=df7['Muertes Covid']
-
-#fig = px.scatter(x=x7, y=y7)
-#fig.show()
-
-#fig = plt.figure() 
-#plt.plot([1, 2, 3, 4, 5]) 
-
-#st.pyplot(fig)
-
-N = 1000
-t = np.linspace(0, 10, 100)
-y = np.sin(t)
-
-fig = go.Figure(data=go.Scatter(x=t, y=y, mode='markers'))
-
-fig.show()

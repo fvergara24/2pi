@@ -1,12 +1,19 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+from PIL import Image
+
+"PI2 Fernando Vergara"
+image = Image.open('Henry.jpg')
 
 df = pd.DataFrame(np.random.randn(1000, 2) / [50, 50] + [37.76, -122.4],columns=['lat', 'lon'])
 st.map(df)
 
+
 st.write('dfhola noseendoneestas')
-"## Header 1"
+
+
+
 
 df=pd.read_csv('https://raw.githubusercontent.com/soyHenry/DS-PI-ProyectoIndividual/main/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
 df.date=pd.to_datetime(df.date, format='%Y/%m/%d')

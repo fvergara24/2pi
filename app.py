@@ -6,9 +6,10 @@ from PIL import Image
 
 
 image = Image.open('Henry.jpg')
+                            
 st.image(image)
 
-"PI2 Fernando Vergara"
+st.title("PI2 Fernando Vergara")
 
 
 

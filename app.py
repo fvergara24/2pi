@@ -74,7 +74,7 @@ st.title('Camas UCI')
 
 #PUNTO 3
 
-st.write('Considerando todo el año 2020')
+st.write('Considerando el año 2020')
 mask3 = (df['date'] >= '2020/1/1') & (df['date'] <= '2020/12/31')
 df3=df.loc[mask3]
 df3=df3[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
@@ -83,7 +83,7 @@ df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confir
 df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
 p2020=st.dataframe(data=df3, width=None, height=None)
 
-st.write('Considerando todo el año 2021')
+st.write('Considerando el año 2021')
 mask3 = (df['date'] >= '2021/1/1') & (df['date'] <= '2021/12/31')
 df3=df.loc[mask3]
 df3=df3[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
@@ -92,7 +92,7 @@ df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confir
 df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
 p2021=st.dataframe(data=df3, width=None, height=None)
 
-st.write('Considerando todo el año 2022')
+st.write('Considerando el año 2022')
 mask3 = (df['date'] >= '2022/1/1') & (df['date'] <= '2022/8/1')
 df3=df.loc[mask3]
 df3=df3[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
@@ -101,7 +101,21 @@ df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confir
 df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
 p2022= st.dataframe(data=df3, width=None, height=None)
 
-st.title('Camas Pediatricas')
+#PUNTO 5
+df5=df[['date','state','total_staffed_adult_icu_beds','staffed_icu_adult_patients_confirmed_covid']].copy()
+mask5 = (df['date'] <= '2021/8/1')
+df5=df5.loc[mask5]
+df5.reset_index(inplace=True, drop=True)
+df5=df5.rename(columns={'total_staffed_adult_icu_beds':'Total Camas ICU','staffed_icu_adult_patients_confirmed_covid':'Total Camas ICU Confirmada'}, inplace=False)
+df5=df5.dropna()
+df5.drop(df5[(df5['Total Camas ICU']==0) & (df5['Total Camas ICU Confirmada']==0)].index, inplace=True)
+df5=df5.groupby('state').sum()
+df5['%']=round(df5['Total Camas ICU Confirmada']*100/df5['Total Camas ICU'],2)
+df5=df5.sort_values(by='%',ascending=False).head(5)
+st.dataframe(data=df5, width=None, height=None)
+
+
+st.title('Camas Pediátricas')
 
 #PUNTO 4
 st.write('Considerando todo el año 2020')
@@ -135,19 +149,9 @@ df4=df4.groupby('state').sum().sort_values(by='Total Camas Pediátricas',ascendi
 st.dataframe(data=df4, width=None, height=None)
 
 
-#PUNTO 5
-df5=df[['date','state','total_staffed_adult_icu_beds','staffed_icu_adult_patients_confirmed_covid']].copy()
-mask5 = (df['date'] <= '2021/8/1')
-df5=df5.loc[mask5]
-df5.reset_index(inplace=True, drop=True)
-df5=df5.rename(columns={'total_staffed_adult_icu_beds':'Total Camas ICU','staffed_icu_adult_patients_confirmed_covid':'Total Camas ICU Confirmada'}, inplace=False)
-df5=df5.dropna()
-df5.drop(df5[(df5['Total Camas ICU']==0) & (df5['Total Camas ICU Confirmada']==0)].index, inplace=True)
-df5=df5.groupby('state').sum()
-df5['%']=round(df5['Total Camas ICU Confirmada']*100/df5['Total Camas ICU'],2)
-df5=df5.sort_values(by='%',ascending=False).head(5)
-st.dataframe(data=df5, width=None, height=None)
 
+
+st.title('Muertes por Covid-19')
 #PUNTO 6
 df6=df[['date','state','deaths_covid']].copy()
 mask2021=(df['date'] >= '2021/1/1') & (df['date'] <= '2021/12/31')
@@ -184,13 +188,8 @@ df_melted_8 = pd.melt(dfmap, id_vars='state', value_name='Total Adult')
 c_8 = alt.Chart(df_melted_8, title='Total de hospitalizados por COVID-19').mark_point().encode(x='state', y='Total Adult').interactive()
 st.altair_chart(c_8, use_container_width=True)
 
-## PUNTO 2. DASHBOARD
-st.write('Grafica. Cantidad de Camas UCI por estado')
-dfd2=df[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
-dfd2.reset_index(inplace=True, drop=True)
-dfd2=dfd2.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confirmed_covid',ascending=False).head(5)
-dfd2=dfd2.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
-st.dataframe(data=dfd2, width=None, height=None)
+st.title('Conclusión')
+st.write('La mayor concentración de hospitalaciones de adulto y pediátricos, así como de muertes por Covid-19 fueron en los estados del sur de Estados Unidos. Puedo suponer que es debido a la migración de los latinoamericanos a Estados Unidos principalmente por parte de México')
 
 
 

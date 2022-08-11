@@ -15,8 +15,8 @@ st.title("PI2 Fernando Vergara")
 ## PI2 Fernando Vergara
 
 
-#df=pd.read_csv('https://raw.githubusercontent.com/soyHenry/DS-PI-ProyectoIndividual/main/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
-df=pd.read_csv('COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
+df=pd.read_csv('https://raw.githubusercontent.com/soyHenry/DS-PI-ProyectoIndividual/main/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
+#df=pd.read_csv('COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
 df.date=pd.to_datetime(df.date, format='%Y/%m/%d')
 
 mask = (df['date'] > '2020/1/1') & (df['date'] <= '2020/6/30')

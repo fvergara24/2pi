@@ -70,6 +70,8 @@ c = alt.Chart(df_melted, title='Ocupación de camas en el estado de Nueva York')
 st.altair_chart(c, use_container_width=True)
 
 
+st.title('Camas UCI')
+
 #PUNTO 3
 
 st.write('Considerando todo el año 2020')
@@ -98,6 +100,8 @@ df3.reset_index(inplace=True, drop=True)
 df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confirmed_covid',ascending=False).head(5)
 df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
 p2022= st.dataframe(data=df3, width=None, height=None)
+
+st.title('Camas Pediatricas')
 
 #PUNTO 4
 st.write('Considerando todo el año 2020')

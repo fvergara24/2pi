@@ -99,8 +99,6 @@ df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confir
 df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
 p2022= st.dataframe(data=df3, width=None, height=None)
 
-
-
 #PUNTO 4
 df4=df[['date','state','total_pediatric_patients_hospitalized_confirmed_covid']].copy()
 mask_2020 = (df['date'] >= '2020/1/1') & (df['date'] <= '2020/12/31')

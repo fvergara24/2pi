@@ -128,13 +128,15 @@ todo.reset_index(inplace=True, drop=True)
 todo.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adulto','total_pediatric_patients_hospitalized_confirmed_covid':'Total Pediatrica','staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI','deaths_covid':'Muertes Covid' }, inplace=True)
 todo = todo.fillna(0, axis=1)
 todo['Totales']=todo['Total Adulto']+todo['Total Pediatrica']+todo['Total Camas UCI']+todo['Muertes Covid']
-st.dataframe(data=todo, width=None, height=None)
+todo.drop(todo[todo['Total Adulto']==0].index, inplace=True)
 
 alt.data_transformers.disable_max_rows()
 
-#melted_todo = pd.melt(todo, id_vars='date', value_name='Total Adulto')
+
 puntos=alt.Chart(todo, title='Total de hospitalizados por COVID-19').mark_point().encode(x='date:T', y='Total Adulto:Q', color='state').interactive()
-st.altair_chart(puntos, use_container_width=True)
+barras=alt.Chart(todo).mark_bar().encode(x='average(Total Adulto)', y='state', color='state').interactive()
+con=alt.vconcat(puntos,barras)
+st.altair_chart(con, use_container_width=True)
 
 
 

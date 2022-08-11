@@ -100,6 +100,7 @@ df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Cama
 p2022= st.dataframe(data=df3, width=None, height=None)
 
 #PUNTO 4
+st.write('Considerando todo el año 2020')
 df4=df[['date','state','total_pediatric_patients_hospitalized_confirmed_covid']].copy()
 mask_2020 = (df['date'] >= '2020/1/1') & (df['date'] <= '2020/12/31')
 df4=df4.loc[mask_2020]
@@ -108,6 +109,27 @@ df4=df4.rename(columns={'total_pediatric_patients_hospitalized_confirmed_covid':
 df4=df4.dropna()
 df4=df4.groupby('state').sum().sort_values(by='Total Camas Pediátricas',ascending=False).head(5)
 st.dataframe(data=df4, width=None, height=None)
+
+st.write('Considerando todo el año 2021')
+df4=df[['date','state','total_pediatric_patients_hospitalized_confirmed_covid']].copy()
+mask_2020 = (df['date'] >= '2021/1/1') & (df['date'] <= '2021/12/31')
+df4=df4.loc[mask_2020]
+df4.reset_index(inplace=True, drop=True)
+df4=df4.rename(columns={'total_pediatric_patients_hospitalized_confirmed_covid':'Total Camas Pediátricas'}, inplace=False)
+df4=df4.dropna()
+df4=df4.groupby('state').sum().sort_values(by='Total Camas Pediátricas',ascending=False).head(5)
+st.dataframe(data=df4, width=None, height=None)
+
+st.write('Considerando todo el año 2022')
+df4=df[['date','state','total_pediatric_patients_hospitalized_confirmed_covid']].copy()
+mask_2020 = (df['date'] >= '2022/1/1') & (df['date'] <= '2022/8/1')
+df4=df4.loc[mask_2020]
+df4.reset_index(inplace=True, drop=True)
+df4=df4.rename(columns={'total_pediatric_patients_hospitalized_confirmed_covid':'Total Camas Pediátricas'}, inplace=False)
+df4=df4.dropna()
+df4=df4.groupby('state').sum().sort_values(by='Total Camas Pediátricas',ascending=False).head(5)
+st.dataframe(data=df4, width=None, height=None)
+
 
 #PUNTO 5
 df5=df[['date','state','total_staffed_adult_icu_beds','staffed_icu_adult_patients_confirmed_covid']].copy()

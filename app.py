@@ -12,7 +12,9 @@ image = Image.open('Henry.jpg')
 st.image(image)
 
 st.title("PI2 Fernando Vergara")
-## PI2 Fernando Vergara
+
+st.write('Objetivo: Recordar lo que vivio el país durante la pandemia ')
+st.write('Intervalo de tiempo: 1 enero del 2020 al 1 de agosto del 2022')
 
 
 df=pd.read_csv('https://raw.githubusercontent.com/soyHenry/DS-PI-ProyectoIndividual/main/COVID-19_Reported_Patient_Impact_and_Hospital_Capacity_by_State_Timeseries.csv')
@@ -56,6 +58,7 @@ top5_3 = top5_3.sort_values(by=['Total'],inplace=False, ascending=False)
 st.dataframe(data=top5_3, width=None, height=None)
 
 #PUNTO 2
+st.write('Considerando todo el intervalo de fechas')
 df2_todas=df[['date','state','total_adult_patients_hospitalized_confirmed_covid']].copy()
 df2_todas=df2_todas[df2_todas['state']=='NY']
 df2_todas=df2_todas.drop('state',axis=1)
@@ -68,13 +71,35 @@ st.altair_chart(c, use_container_width=True)
 
 
 #PUNTO 3
+
+st.write('Considerando todo el año 2020')
 mask3 = (df['date'] >= '2020/1/1') & (df['date'] <= '2020/12/31')
 df3=df.loc[mask3]
 df3=df3[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
 df3.reset_index(inplace=True, drop=True)
 df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confirmed_covid',ascending=False).head(5)
 df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
-st.dataframe(data=df3, width=None, height=None)
+p2020=st.dataframe(data=df3, width=None, height=None)
+
+st.write('Considerando todo el año 2021')
+mask3 = (df['date'] >= '2021/1/1') & (df['date'] <= '2021/12/31')
+df3=df.loc[mask3]
+df3=df3[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
+df3.reset_index(inplace=True, drop=True)
+df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confirmed_covid',ascending=False).head(5)
+df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
+p2021=st.dataframe(data=df3, width=None, height=None)
+
+st.write('Considerando todo el año 2022')
+mask3 = (df['date'] >= '2022/1/1') & (df['date'] <= '2022/8/1')
+df3=df.loc[mask3]
+df3=df3[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
+df3.reset_index(inplace=True, drop=True)
+df3=df3.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confirmed_covid',ascending=False).head(5)
+df3=df3.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
+p2022= st.dataframe(data=df3, width=None, height=None)
+
+
 
 #PUNTO 4
 df4=df[['date','state','total_pediatric_patients_hospitalized_confirmed_covid']].copy()

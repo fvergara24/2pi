@@ -13,7 +13,7 @@ st.image(image)
 
 st.title("PI2 Fernando Vergara")
 
-st.write('Objetivo: Recordar lo que vivio el país durante la pandemia ')
+st.write('Objetivo: Recordar lo que vivio Estados Unidos durante la pandemia ')
 st.write('Intervalo de tiempo: 1 enero del 2020 al 1 de agosto del 2022')
 
 

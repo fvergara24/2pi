@@ -32,9 +32,6 @@ top5_3 = df3_6meses.groupby('state').sum()
 top5_3 = top5_3.sort_values(by=['Total'],inplace=False, ascending=False)
 st.dataframe(data=top5_3, width=None, height=None)
 
-st.write('Tabla 2. Total de ocupación hospitalaria por COVID-19 por mes')                            
-st.image(Image.open('meses.jpg'))
-
 #PUNTO 2
 df2_todas=df[['date','state','inpatient_beds_used_covid']].copy()
 df2_todas=df2_todas[df2_todas['state']=='NY']
@@ -104,7 +101,7 @@ df_melted_7 = pd.melt(df7, id_vars='Falta de Personal', value_name='Muertes Covi
 c_7 = alt.Chart(df_melted_7, title='Relación entre Falta de Personal y Muertes por Covid-19').mark_point().encode(x='Falta de Personal', y='Muertes Covid').interactive()#, color='parameter')
 st.altair_chart(c_7, use_container_width=True)
 
-## PUNTO 1. DASHBOARD
+## PUNTO 1.  y PUNTO 3. DEL DASHBOARD
 st.write('Mapa que muestre la cantidad de hospitalizados debido al COVID-19 por Estado.')
 dfmap = df[['state','total_adult_patients_hospitalized_confirmed_covid']].copy()
 dfmap.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adult'}, inplace=True)

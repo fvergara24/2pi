@@ -109,4 +109,7 @@ dfmap = df[['state','total_adult_patients_hospitalized_confirmed_covid']].copy()
 dfmap.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adult'}, inplace=True)
 dfmap = dfmap.fillna(0, axis=1)
 dfmap = dfmap.groupby('state', as_index=False, sort=False).sum()
-alt.Chart(dfmap).mark_point().encode(x='state', y='Total Adult')
+df_melted_8 = pd.melt(dfmap, id_vars='state', value_name='Total Adult')
+c_8 = alt.Chart(df_melted_8, title='Total de hospitalizados por COVID-19').mark_point().encode(x='state', y='Total Adult').interactive()
+st.altair_chart(c_8, use_container_width=True)
+

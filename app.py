@@ -104,7 +104,8 @@ df_melted_7 = pd.melt(df7, id_vars='Falta de Personal', value_name='Muertes Covi
 c_7 = alt.Chart(df_melted_7, title='Relación entre Falta de Personal y Muertes por Covid-19').mark_point().encode(x='Falta de Personal', y='Muertes Covid').interactive()#, color='parameter')
 st.altair_chart(c_7, use_container_width=True)
 
-## Mapa que muestre la cantidad de hospitalizados debido al COVID-19 por Estado.
+## PUNTO 1. DASHBOARD
+st.write('Mapa que muestre la cantidad de hospitalizados debido al COVID-19 por Estado.')
 dfmap = df[['state','total_adult_patients_hospitalized_confirmed_covid']].copy()
 dfmap.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adult'}, inplace=True)
 dfmap = dfmap.fillna(0, axis=1)
@@ -113,3 +114,10 @@ df_melted_8 = pd.melt(dfmap, id_vars='state', value_name='Total Adult')
 c_8 = alt.Chart(df_melted_8, title='Total de hospitalizados por COVID-19').mark_point().encode(x='state', y='Total Adult').interactive()
 st.altair_chart(c_8, use_container_width=True)
 
+## PUNTO 2. DASHBOARD
+st.write('Grafica. Cantidad de Camas UCI por estado')
+dfd2=df[['date','state','staffed_icu_adult_patients_confirmed_covid']].copy()
+dfd2.reset_index(inplace=True, drop=True)
+dfd2=dfd2.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_confirmed_covid',ascending=False).head(5)
+dfd2=dfd2.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
+st.dataframe(data=dfd2, width=None, height=None)

@@ -104,7 +104,7 @@ df_melted_7 = pd.melt(df7, id_vars='Falta de Personal', value_name='Muertes Covi
 c_7 = alt.Chart(df_melted_7, title='Relación entre Falta de Personal y Muertes por Covid-19').mark_point().encode(x='Falta de Personal', y='Muertes Covid').interactive()#, color='parameter')
 st.altair_chart(c_7, use_container_width=True)
 
-#Un mapa que muestre la cantidad de hospitalizados debido al COVID-19 por Estado.
+## Mapa que muestre la cantidad de hospitalizados debido al COVID-19 por Estado.
 dfmap = df[['state','total_adult_patients_hospitalized_confirmed_covid']].copy()
 dfmap.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adult'}, inplace=True)
 dfmap = dfmap.fillna(0, axis=1)

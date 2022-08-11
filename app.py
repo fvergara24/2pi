@@ -22,6 +22,27 @@ df.date=pd.to_datetime(df.date, format='%Y/%m/%d')
 mask = (df['date'] > '2020/1/1') & (df['date'] <= '2020/6/30')
 df1=df.loc[mask]
 
+
+# GRAFICA TOTAL ADULTOS HOSPITALIZADOS CONFIRMADOS COVID-19
+todo=df[['date','state','total_adult_patients_hospitalized_confirmed_covid','total_pediatric_patients_hospitalized_confirmed_covid','staffed_icu_adult_patients_confirmed_covid','deaths_covid']].copy()
+masktodo=((df['date'] >= '2020/6/1') & (df['date'] <= '2022/8/1'))
+todo=todo.loc[masktodo]
+todo.reset_index(inplace=True, drop=True)
+todo.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adulto','total_pediatric_patients_hospitalized_confirmed_covid':'Total Pediatrica','staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI','deaths_covid':'Muertes Covid' }, inplace=True)
+todo = todo.fillna(0, axis=1)
+todo['Totales']=todo['Total Adulto']+todo['Total Pediatrica']+todo['Total Camas UCI']+todo['Muertes Covid']
+todo.drop(todo[todo['Total Adulto']==0].index, inplace=True)
+
+alt.data_transformers.disable_max_rows()
+
+filtro=alt.selection_interval(encodings=['y'])
+puntos=alt.Chart(todo, title='Total de hospitalizados por COVID-19').mark_point().encode(x='date:T', y='Total Adulto:Q', color=alt.condition(filtro,'state', alt.value('lightgray'))).properties(selection=filtro).interactive()
+barras=alt.Chart(todo).mark_bar().encode(x='average(Total Adulto)', y='state', color='state').transform_filter(filtro)
+con=alt.vconcat(puntos,barras)
+st.altair_chart(con, use_container_width=True)
+
+
+
 #PUNTO 1
 df3_6meses=df1[['date','state','total_adult_patients_hospitalized_confirmed_covid','total_pediatric_patients_hospitalized_confirmed_covid']].copy()
 df3_6meses.reset_index(inplace=True, drop=True)
@@ -120,23 +141,7 @@ dfd2=dfd2.groupby('state').sum().sort_values(by='staffed_icu_adult_patients_conf
 dfd2=dfd2.rename(columns={'staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI'}, inplace=False)
 st.dataframe(data=dfd2, width=None, height=None)
 
-# GRAFICA TOTAL ADULTOS HOSPITALIZADOS CONFIRMADOS COVID-19
-todo=df[['date','state','total_adult_patients_hospitalized_confirmed_covid','total_pediatric_patients_hospitalized_confirmed_covid','staffed_icu_adult_patients_confirmed_covid','deaths_covid']].copy()
-masktodo=((df['date'] >= '2020/6/1') & (df['date'] <= '2022/8/1'))
-todo=todo.loc[masktodo]
-todo.reset_index(inplace=True, drop=True)
-todo.rename(columns={'total_adult_patients_hospitalized_confirmed_covid':'Total Adulto','total_pediatric_patients_hospitalized_confirmed_covid':'Total Pediatrica','staffed_icu_adult_patients_confirmed_covid':'Total Camas UCI','deaths_covid':'Muertes Covid' }, inplace=True)
-todo = todo.fillna(0, axis=1)
-todo['Totales']=todo['Total Adulto']+todo['Total Pediatrica']+todo['Total Camas UCI']+todo['Muertes Covid']
-todo.drop(todo[todo['Total Adulto']==0].index, inplace=True)
 
-alt.data_transformers.disable_max_rows()
-
-filtro=alt.selection_interval(encodings=['y'])
-puntos=alt.Chart(todo, title='Total de hospitalizados por COVID-19').mark_point().encode(x='date:T', y='Total Adulto:Q', color=alt.condition(filtro,'state', alt.value('lightgray'))).properties(selection=filtro).interactive()
-barras=alt.Chart(todo).mark_bar().encode(x='average(Total Adulto)', y='state', color='state').transform_filter(filtro)
-con=alt.vconcat(puntos,barras)
-st.altair_chart(con, use_container_width=True)
 
 
 

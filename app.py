@@ -132,13 +132,16 @@ todo.drop(todo[todo['Total Adulto']==0].index, inplace=True)
 
 alt.data_transformers.disable_max_rows()
 
+filtro=alt.selection_interval()
 
-puntos=alt.Chart(todo, title='Total de hospitalizados por COVID-19').mark_point().encode(x='date:T', y='Total Adulto:Q', color='state').interactive()
-barras=alt.Chart(todo).mark_bar().encode(x='average(Total Adulto)', y='state', color='state').interactive()
+puntos=alt.Chart(todo, title='Total de hospitalizados por COVID-19').mark_point().encode(x='date:T', y='Total Adulto:Q', color=alt.condition(filtro,'state', alt.value('lightgray'))).properties(selection=filtro).interactive()
+barras=alt.Chart(todo).mark_bar().encode(x='average(Total Adulto)', y='state', color='state').transform_filter(filtro)
 con=alt.vconcat(puntos,barras)
 st.altair_chart(con, use_container_width=True)
 
 
 
-#barras=alt.Chart(todo).mark_bar().encode(x='average(Total Adulto)', y='state', color='state').interactive()
-#alt.vconcat(puntos,barras)
+
+
+
+

@@ -133,8 +133,8 @@ st.dataframe(data=todo, width=None, height=None)
 alt.data_transformers.disable_max_rows()
 
 #melted_todo = pd.melt(todo, id_vars='date', value_name='Total Adulto')
-#puntos=alt.Chart(melted_todo, title='Total de hospitalizados por COVID-19').mark_point().encode(x='date:T', y='Total Adulto:Q', color='state').interactive()
-#st.altair_chart(puntos, use_container_width=True)
+puntos=alt.Chart(todo, title='Total de hospitalizados por COVID-19').mark_point().encode(x='date:T', y='Total Adulto:Q', color='state').interactive()
+st.altair_chart(puntos, use_container_width=True)
 
 
 

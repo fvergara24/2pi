@@ -130,6 +130,7 @@ todo = todo.fillna(0, axis=1)
 todo['Totales']=todo['Total Adulto']+todo['Total Pediatrica']+todo['Total Camas UCI']+todo['Muertes Covid']
 st.dataframe(data=todo, width=None, height=None)
 
+alt.data_transformers.disable_max_rows()
 
 #melted_todo = pd.melt(todo, id_vars='date', value_name='Total Adulto')
 #puntos=alt.Chart(melted_todo, title='Total de hospitalizados por COVID-19').mark_point().encode(x='date:T', y='Total Adulto:Q', color='state').interactive()

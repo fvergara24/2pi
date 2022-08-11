@@ -33,7 +33,7 @@ top5_3 = top5_3.sort_values(by=['Total'],inplace=False, ascending=False)
 st.dataframe(data=top5_3, width=None, height=None)
 
 #PUNTO 2
-df2_todas=df[['date','state','inpatient_beds_used_covid']].copy()
+df2_todas=df[['date','state','total_adult_patients_hospitalized_confirmed_covid']].copy()
 df2_todas=df2_todas[df2_todas['state']=='NY']
 df2_todas=df2_todas.drop('state',axis=1)
 #Gráfica
